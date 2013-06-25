@@ -1,0 +1,66 @@
+<link rel="stylesheet" href="https://github.com/manuelcreinhard/web/blob/master/css/tip.css" />
+        <script src='http://code.jquery.com/jquery-1.9.1.js'></script>
+        <script src='https://raw.github.com/DmitryBaranovskiy/raphael/master/raphael.js'></script>
+        <script src='https://github.com/manuelcreinhard/web/blob/master/js/radial.js'></script>
+        <script>
+$(document).ready(function(){
+  tip = $("#tip").hide(); //There needs to be a div with id tip, can be changed to be whatever...
+	var series = [[1,2,2,3],[8,9,10,5,8,9,10,5,8,9,10,5,8,9,10,5,8,9,10,5,8,9,10,5,8,9,10,5,8,9,10,5,8,9,10,5]];
+	var seriesId = ["someId","anotherId"];
+	var ranges = [0,10];	
+	radialchart(series, seriesId, ranges,[300,300],"canvas-container", ["someCircles",1]);
+	for(x in seriesId){
+		addTip($("#"+seriesId[x]),$("#"+seriesId[x]));
+	}
+	var mySeries=[$("."+seriesId[0]+"_class"),$("."+seriesId[1]+"_class")];
+	for(var i=0; i< series.length;i++){
+		for(var j=0;j<series[i].length;j++){
+			addTip($("#"+seriesId[i]+"_"+j),series[i][j]);			
+		}
+	}
+	$('rect')
+	.mouseover(function(){
+		$(this).attr(  
+        {  
+            stroke: "white",  
+            'stroke-width': 3
+        });
+	})
+		.mouseleave(function(){
+		$(this).attr(  
+        {    
+			stroke: "black", 
+            'stroke-width': 1
+        });
+	})
+	;
+})
+.click(function(){
+	$(".anotherId_class").toggle();
+})
+;
+var tip;
+var tipText = "";
+var over = false;
+
+function addTip(node, txt){
+    $(node).mouseenter(function(){
+       tipText = txt;
+       tip.fadeIn();
+       over = true;
+    }).mouseleave(function(){
+       tip.fadeOut(300);
+       over = false;
+    });
+}
+
+$(document).mousemove(function(e){
+    if (over){
+      tip.css("left", e.clientX+20).css("top", e.clientY+20);
+      tip.text(tipText);
+    }
+});
+
+</script>
+<div id="tip"></div>
+		<div id = "canvas-container"></div>
