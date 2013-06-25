@@ -16,7 +16,7 @@
 
 var paths = [];
 var paper;
-var colors = ["lime", "cyan","red", "green", "blue", "pink"]; //some colors to not return everything b&w
+var colors = ["lime", "blue", "cyan","red", "green", "pink"]; //some colors to not return everything b&w
 
 function radialchart(series, seriesId, range, paperSize, element,circles){
 	//receives array of series [[series1],[series2],[..seriesN]
